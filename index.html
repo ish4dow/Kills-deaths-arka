@@ -1,33 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Página web con Google Sheets</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      var spreadsheetID = "1GBFU9BCqrwhyGJt4LB5ZN8PO-GIjL4aMfQD6iasplHo";
-      var url = "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/od6/public/values?alt=json";
-
-      $.getJSON(url, function(data) {
-        var entry = data.feed.entry;
-
-        $(entry).each(function() {
-          var cell1 = this.gsx$columna1.$t;
-          var cell2 = this.gsx$columna2.$t;
-
-          // Haz algo con los valores de las celdas, por ejemplo, mostrarlos en la página
-          $("#tabla").append("<tr><td>" + cell1 + "</td><td>" + cell2 + "</td></tr>");
-        });
-      });
-    });
-  </script>
-</head>
-<body>
-  <table id="tabla">
-    <tr>
-      <th>Columna 1</th>
-      <th>Columna 2</th>
-    </tr>
-  </table>
-</body>
+  <head>
+    <title>Hoja de cálculo de Google Sheets incrustada en una página web</title>
+  </head>
+  <body>
+    <iframe src="https://docs.google.com/spreadsheets/d/e/1GBFU9BCqrwhyGJt4LB5ZN8PO-GIjL4aMfQD6iasplHo/pubhtml?widget=true&amp;headers=false" width="100%" height="800"></iframe>
+  </body>
 </html>
