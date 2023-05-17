@@ -1,48 +1,33 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Obtener datos de Google Sheets</title>
-</head>
-<body>
-  <table id="myTable">
-    <tr>
-      <th>Nombre</th>
-      <th>Edad</th>
-    </tr>
-  </table>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <title>Página web con Google Sheets</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function() {
-      // ID de tu hoja de cálculo de Google Sheets
-      var spreadsheetId = "1GBFU9BCqrwhyGJt4LB5ZN8PO-GIjL4aMfQD6iasplHo";
+      var spreadsheetID = "1GBFU9BCqrwhyGJt4LB5ZN8PO-GIjL4aMfQD6iasplHo";
+      var url = "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/od6/public/values?alt=json";
 
-      // Rango de la tabla que deseas obtener (por ejemplo, A1:B5)
-      var range = "A1;A1000";
+      $.getJSON(url, function(data) {
+        var entry = data.feed.entry;
 
-      // URL de la API de Google Sheets
-      var url = "https://sheets.googleapis.com/v4/spreadsheets/" + spreadsheetId + "/values/" + range;
+        $(entry).each(function() {
+          var cell1 = this.gsx$columna1.$t;
+          var cell2 = this.gsx$columna2.$t;
 
-      // Realizar una solicitud GET a la API de Google Sheets
-      $.get(url, function(response) {
-        var values = response.values;
-
-        // Iterar sobre los datos y agregar filas a la tabla HTML
-        for (var i = 0; i < values.length; i++) {
-          var row = "<tr>";
-          row += "<td>" + values[i][0] + "</td>";
-          row += "<td>" + values[i][1] + "</td>";
-          row += "</tr>";
-          $("#myTable").append(row);
-        }
+          // Haz algo con los valores de las celdas, por ejemplo, mostrarlos en la página
+          $("#tabla").append("<tr><td>" + cell1 + "</td><td>" + cell2 + "</td></tr>");
+        });
       });
     });
   </script>
+</head>
+<body>
+  <table id="tabla">
+    <tr>
+      <th>Columna 1</th>
+      <th>Columna 2</th>
+    </tr>
+  </table>
 </body>
 </html>
-
-
-
-
-
