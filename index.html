@@ -1,8 +1,48 @@
-holhgggg
 
-bkkvkv
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Obtener datos de Google Sheets</title>
+</head>
+<body>
+  <table id="myTable">
+    <tr>
+      <th>Nombre</th>
+      <th>Edad</th>
+    </tr>
+  </table>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // ID de tu hoja de cálculo de Google Sheets
+      var spreadsheetId = "1GBFU9BCqrwhyGJt4LB5ZN8PO-GIjL4aMfQD6iasplHo";
+
+      // Rango de la tabla que deseas obtener (por ejemplo, A1:B5)
+      var range = "A1;A1000";
+
+      // URL de la API de Google Sheets
+      var url = "https://sheets.googleapis.com/v4/spreadsheets/" + spreadsheetId + "/values/" + range;
+
+      // Realizar una solicitud GET a la API de Google Sheets
+      $.get(url, function(response) {
+        var values = response.values;
+
+        // Iterar sobre los datos y agregar filas a la tabla HTML
+        for (var i = 0; i < values.length; i++) {
+          var row = "<tr>";
+          row += "<td>" + values[i][0] + "</td>";
+          row += "<td>" + values[i][1] + "</td>";
+          row += "</tr>";
+          $("#myTable").append(row);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
 
 
 
 
-nohihivkvhkh
+
